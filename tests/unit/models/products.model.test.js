@@ -13,7 +13,7 @@ describe('testa os produtos', () => {
   });
   
   it('lista o produto de acordo com o id', async () => {
-    sinon.stub(connection, "execute").resolves([oneProduct]);
+    sinon.stub(connection, "execute").resolves([[oneProduct]]);
     const response = await productsModel.findById(3);
     expect(response).to.deep.equal(oneProduct);
   });
