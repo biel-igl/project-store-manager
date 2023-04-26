@@ -1,4 +1,4 @@
-module.exports = [
+const productsModel = [
   {
     id: 1,
     name: "Martelo de Thor",
@@ -8,3 +8,7 @@ module.exports = [
     name: "Traje de encolhimento",
   },
 ];
+
+module.exports = {
+  productsModel,
+}
