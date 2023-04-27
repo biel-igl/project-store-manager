@@ -1,4 +1,4 @@
-const salesControllerMock = [
+const salesModelsMock = [
   {
     saleId: 1,
     date: "2021-09-09T04:54:29.000Z",
@@ -16,5 +16,5 @@ const salesControllerMock = [
 ];
 
 module.exports = {
-  salesControllerMock,
-}
+  salesModelsMock,
+};

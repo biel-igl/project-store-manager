@@ -6,12 +6,13 @@ chai.use(sinonChai);
 
 const { salesControllerMock } = require('./mock/sales.controllers.mock');
 const { salesService } = require("../../../src/services");
+const { salesController } = require("../../../src/controllers");
 
 describe("testa as vendas na camada Controllers", () => {
   describe('com get', () => {
     it('é chamado o status com o código 200', async () => {
       sinon
-        .stub(salesService, "findAll")
+        .stub(salesService, "listAll")
         .resolves({ type: null, message: salesControllerMock });
       const req = {};
       const res = {};
