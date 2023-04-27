@@ -16,7 +16,7 @@ router.get(
 
 router.post(
   '/',
-  productsController.newProduct,
+  productsController.createNewProduct,
 );
 
 module.exports = router;
