@@ -4,6 +4,8 @@ const router = express.Router();
 
 const { productsController } = require('../controllers');
 
+const validateName = require('../middlewares/validateName');
+
 router.get(
   '/',
   productsController.listProducts,
@@ -16,6 +18,7 @@ router.get(
 
 router.post(
   '/',
+  validateName,
   productsController.createNewProduct,
 );
 
