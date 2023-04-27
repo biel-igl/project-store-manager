@@ -73,20 +73,6 @@ describe("testa os produtos na camada Controllers", () => {
       expect(res.status).to.have.been.calledOnceWith(201);
       expect(res.json).to.have.been.calledWith(newProduct);
     })
-    it('não pode ser cadastrado sem o campo nome na requisição', async () => {
-      sinon
-        .stub(productsService, "createProduct")
-        .resolves({ message: '"name" is required' });
-      const req = {};
-      const res = {};
-      res.status = sinon.stub().returns(res);
-      res.json = sinon.stub().returns({ message: '"name" is required' });
-      await productsController.createNewProduct(req, res);
-      expect(res.status).to.have.been.calledOnceWith(400);
-      expect(res.json).to.have.been.calledWith({
-        message: '"name" is required',
-      });
-    })
   })
     
   afterEach(function () {

@@ -8,9 +8,14 @@
     "method": "POST",
     "sortNum": 0,
     "created": "2023-04-26T21:50:24.085Z",
-    "modified": "2023-04-27T21:10:21.911Z",
+    "modified": "2023-04-27T21:27:17.290Z",
     "headers": [],
     "params": [],
+    "body": {
+      "type": "json",
+      "raw": "{\n  \"name\": \"minh\"\n}",
+      "form": []
+    },
     "tests": []
   }
 ]
