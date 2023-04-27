@@ -1,8 +1,7 @@
 const { productsService } = require('../services');
 
 const listProducts = async (_req, res) => {
-  const { type, message } = await productsService.findAll();
-  if (type) return res.status(404).json({ message: 'Products not found' });
+  const { message } = await productsService.findAll();
   res.status(200).json(message);
 };
 
@@ -15,8 +14,7 @@ const productById = async (req, res) => {
 
 const createNewProduct = async (req, res) => {
   const { name } = req.body;
-  const { type, message } = await productsService.createProduct(name);
-  if (type) return res.status(type).json({ message });
+  const { message } = await productsService.createProduct(name);
   res.status(201).json({ id: message, name });
 };
 

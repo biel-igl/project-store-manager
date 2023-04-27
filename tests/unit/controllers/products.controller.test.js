@@ -3,7 +3,7 @@ const sinon = require("sinon");
 const sinonChai = require("sinon-chai");
 const { expect } = chai;
 chai.use(sinonChai);
-const { productsControllerMock, newProduct } = require("./mock/products.controller.mock");
+const { productsControllerMock, newProduct, oneProduct } = require("./mock/products.controller.mock");
 const { productsService } = require("../../../src/services");
 const { productsController } = require("../../../src/controllers");
 
@@ -31,6 +31,33 @@ describe("testa os produtos na camada Controllers", () => {
         .resolves({ type: null, message: productsControllerMock });
       await productsController.listProducts(req, res);
       expect(res.json).to.have.been.calledWith(productsControllerMock);
+    });
+
+    it("é chamado o json com o produto correnpondente ao id", async () => {
+      const req = { params: { id: 3} };
+      const res = {};
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns(oneProduct);
+      sinon
+        .stub(productsService, "findById")
+        .resolves({ message: oneProduct });
+      await productsController.productById(req, res);
+      expect(res.json).to.have.been.calledWith(oneProduct);
+    });
+
+    it("não encontra o id", async () => {
+      sinon
+        .stub(productsService, "findById")
+        .resolves({ type: 404, message: "Product not found" });
+      const req = { params: { id: 120 } };
+      const res = {};
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns({ message: "Product not found" });
+      await productsController.productById(req, res);
+      expect(res.status).to.have.been.calledOnceWith(404);
+      expect(res.json).to.have.been.calledWith({
+        message: "Product not found",
+      });
     });
   });
   describe('com post', () => {
