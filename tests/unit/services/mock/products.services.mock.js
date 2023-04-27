@@ -18,7 +18,13 @@ const oneProduct = {
   name: "Escudo do Capitão América",
 };
 
+const newProduct = {
+  id: 4,
+  name: "produto top",
+};
+
 module.exports = {
   productsServer,
   oneProduct,
+  newProduct,
 };
