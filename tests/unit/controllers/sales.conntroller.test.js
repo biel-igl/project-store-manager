@@ -7,6 +7,7 @@ chai.use(sinonChai);
 const {
   salesControllerMock,
   salesByIdMock,
+  returnNewSaleMock,
 } = require("./mock/sales.controllers.mock");
 const { salesService } = require("../../../src/services");
 const { salesController } = require("../../../src/controllers");
@@ -47,6 +48,11 @@ describe("testa as vendas na camada Controllers", () => {
       expect(res.status).to.have.been.calledOnceWith(404);
     });
   });
+  describe('com post', () => {
+    it('Nvo cadastro com sucesso', () => {
+      sinon.stub(salesService, 'createNewSale').resolves({message: 3})
+    })
+  })
   afterEach(function () {
     sinon.restore();
   });
