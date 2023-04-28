@@ -23,8 +23,12 @@ describe("testa as vendas na camada Services", () => {
 
     it("retorna a venda com o id correto", async () => {
       sinon.stub(salesModel, 'findById').resolves(salesByIdMock);
-      const response = await salesService.listById();
+      const response = await salesService.salesById(1);
       expect(response.message).to.deep.equal(salesByIdMock);
+    });
+    it("se o id for incorreto", async () => {
+      const response = await salesService.salesById(12);
+      expect(response).to.deep.equal({ type: 404, message: "Sale not found" });
     });
   });
 

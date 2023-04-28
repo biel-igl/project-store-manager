@@ -28,13 +28,24 @@ describe("testa as vendas na camada Controllers", () => {
       sinon
         .stub(salesService, "salesById")
         .resolves({ type: null, message: salesByIdMock });
-      const req = {};
+      const req = { params: { id: 1 } };
       const res = {};
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns();
-      await salesController.salesById(req, res);
-      expect(res.status).to.habe.been.calledOnceWith(200);
-    })
+      await salesController.listSalesById(req, res);
+      expect(res.status).to.have.been.calledOnceWith(200);
+    });
+    it("não encontra o id", async () => {
+      sinon
+        .stub(salesService, "salesById")
+        .resolves({ type: 404, message: 'Sale not found' });
+      const req = { params: { id: 12 } };
+      const res = {};
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns({ message: "Sale not found" });
+      await salesController.listSalesById(req, res);
+      expect(res.status).to.have.been.calledOnceWith(404);
+    });
   });
   afterEach(function () {
     sinon.restore();
