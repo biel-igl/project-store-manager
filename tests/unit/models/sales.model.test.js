@@ -25,7 +25,7 @@ describe('testa as vendas na camada Models', () => {
   describe('com post', () => {
     it('Faz o INSERT corretamente', async() => {
       sinon.stub(connection, "execute").resolves([{ insertId: 3 }]);
-      const response = await salesModel.insertNewSale('produto top');
+      const response = await salesModel.createNewSale();
       expect(response).to.be.deep.equal(returnNewSaleMock.id);
     })
   })
