@@ -9,6 +9,7 @@ const {
 
 const connection = require("../../../src/models/connection");
 const { salesModelsMock } = require("./mock/sales.model.mock");
+const { salesModel } = require("../../../src/models");
 
 describe('testa as vendas na camada Models', () => {
   describe("com get", () => {

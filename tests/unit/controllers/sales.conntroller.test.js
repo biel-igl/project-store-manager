@@ -18,7 +18,7 @@ describe("testa as vendas na camada Controllers", () => {
       const res = {};
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns();
-      await salesController.listSales();
+      await salesController.listSales(req, res);
       expect(res.status).to.have.been.calledOnceWith(200);
     })
   })

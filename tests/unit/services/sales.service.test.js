@@ -8,12 +8,13 @@ const {
 
 const { salesModel } = require('../../../src/models');
 const { salesServicesMock } = require("./mock/sales.services.mock");
+const { salesService } = require("../../../src/services");
 
 describe("testa as vendas na camada Services", () => {
   describe("com get", () => {
     it("lista todos as vendas com sucesso", async () => {
       sinon.stub(salesModel, "findAll").resolves(salesServicesMock);
-      const response = await salesService.findAll();
+      const response = await salesService.listAll();
       expect(response.message).to.deep.equal(salesServicesMock);
     });
   });
