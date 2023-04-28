@@ -7,7 +7,10 @@ const {
 } = require("./mock/products.services.mock");
 
 const { salesModel } = require('../../../src/models');
-const { salesServicesMock } = require("./mock/sales.services.mock");
+const {
+  salesServicesMock,
+  salesByIdMock,
+} = require("./mock/sales.services.mock");
 const { salesService } = require("../../../src/services");
 
 describe("testa as vendas na camada Services", () => {
@@ -16,6 +19,12 @@ describe("testa as vendas na camada Services", () => {
       sinon.stub(salesModel, "findAll").resolves(salesServicesMock);
       const response = await salesService.listAll();
       expect(response.message).to.deep.equal(salesServicesMock);
+    });
+
+    it("retorna a venda com o id correto", async () => {
+      sinon.stub(salesModel, 'findById').resolves(salesByIdMock);
+      const response = await salesService.listById();
+      expect(response.message).to.deep.equal(salesByIdMock);
     });
   });
 
