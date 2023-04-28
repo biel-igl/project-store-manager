@@ -31,7 +31,7 @@ describe("testa as vendas na camada Services", () => {
     it('cria nova venda com sucesso ', async () => {
       sinon.stub(salesModel, 'insertNewSale').resolves({ id: 3 });
       const result = await salesService.createNewSale(newSaleMock);
-      expect(response.message).to.deep.equal({ id: 3 });
+      expect(result.message).to.deep.equal({ id: 3 });
     })
   })
 
