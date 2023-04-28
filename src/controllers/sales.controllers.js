@@ -16,7 +16,7 @@ const createNewSale = async (req, res) => {
   const newSale = req.body;
   const { type, message } = await salesService.createNewSale(newSale);
   if (type) return res.status(type).json({ message });
-  return res.status(201).json({ id: message, itemsSold: newSale });
+  return res.status(201).json(message);
 };
 
 module.exports = {

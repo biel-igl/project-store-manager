@@ -1,11 +1,8 @@
-const { validadeObject, validadeFields } = require('./validations/validadeSales');
+const { validadeFields } = require('./validations/validadeSales');
 
-module.exports = async (req, res, next) => {
+module.exports = (req, res, next) => {
   const newSale = req.body;
-  newSale.map(
-    (each) =>
- 
-      validadeObject(each, res) || validadeFields(each, res),
-);
-  return next();
+  return (!newSale.length && res.status(400).json({ message: 'Object sales is require' }))
+    || validadeFields(newSale, res)
+    || next();
 };

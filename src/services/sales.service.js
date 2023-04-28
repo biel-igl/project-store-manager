@@ -17,7 +17,7 @@ const createNewSale = async (newSale) => {
     const validade = await findById(each.productId);
     return validade.type && validade.message;
   });
-  const sale = await salesModel.createNewSale();
+  const sale = await salesModel.createNewSale(newSale);
   return { type: null, message: sale };
 };
 
