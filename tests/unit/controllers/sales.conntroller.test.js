@@ -11,6 +11,7 @@ const {
 } = require("./mock/sales.controllers.mock");
 const { salesService } = require("../../../src/services");
 const { salesController } = require("../../../src/controllers");
+const { newSaleMock } = require("./mock/sales.controllers.mock");
 
 describe("testa as vendas na camada Controllers", () => {
   describe('com get', () => {
@@ -49,8 +50,14 @@ describe("testa as vendas na camada Controllers", () => {
     });
   });
   describe('com post', () => {
-    it('Nvo cadastro com sucesso', () => {
-      sinon.stub(salesService, 'createNewSale').resolves({message: 3})
+    it('Nvo cadastro com sucesso', async () => {
+      sinon.stub(salesService, 'createNewSale').resolves({ message: 3 });
+      const req = { body: newSaleMock};
+      const res = {};
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns(newSaleMock);
+      await salesController.createNewSale(req, res);
+      expect(res.status).to.have.been.calledOnceWith(201);
     })
   })
   afterEach(function () {

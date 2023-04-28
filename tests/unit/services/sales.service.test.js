@@ -1,15 +1,10 @@
 const { expect } = require("chai");
 const sinon = require("sinon");
-const {
-  productsMock,
-  oneProduct,
-  newProduct,
-} = require("./mock/products.services.mock");
-
 const { salesModel } = require('../../../src/models');
 const {
   salesServicesMock,
   salesByIdMock,
+  newSaleMock,
 } = require("./mock/sales.services.mock");
 const { salesService } = require("../../../src/services");
 
@@ -31,6 +26,14 @@ describe("testa as vendas na camada Services", () => {
       expect(response).to.deep.equal({ type: 404, message: "Sale not found" });
     });
   });
+
+  describe('com post', () => {
+    it('cria nova venda com sucesso ', async () => {
+      sinon.stub(salesModel, 'insertNewSale').resolves({ id: 3 });
+      const result = await salesService.createNewSale(newSaleMock);
+      expect(response.message).to.deep.equal({ id: 3 });
+    })
+  })
 
   afterEach(function () {
     sinon.restore();
