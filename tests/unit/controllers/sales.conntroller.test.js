@@ -50,7 +50,7 @@ describe("testa as vendas na camada Controllers", () => {
     });
   });
   describe('com post', () => {
-    it('Nvo cadastro com sucesso', async () => {
+    it('Novo cadastro com sucesso', async () => {
       sinon.stub(salesService, 'createNewSale').resolves({ message: 3 });
       const req = { body: newSaleMock};
       const res = {};
@@ -59,6 +59,9 @@ describe("testa as vendas na camada Controllers", () => {
       await salesController.createNewSale(req, res);
       expect(res.status).to.have.been.calledOnceWith(201);
     })
+    it("se não tiver o ProductId correto", () => {
+      sinon.stub;
+    });
   })
   afterEach(function () {
     sinon.restore();

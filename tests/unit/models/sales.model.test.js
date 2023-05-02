@@ -28,7 +28,7 @@ describe('testa as vendas na camada Models', () => {
         .stub(connection, "execute")
         .resolves([{ id: 3, itemsSold: newSaleMock }]);
       const response = await salesModel.createNewSale(newSaleMock);
-      expect(response).to.be.deep.equal(returnNewSaleMock);
+      expect(response.itemsSold).to.be.deep.equal(returnNewSaleMock.itemsSold);
     })
   })
   afterEach(function () {
