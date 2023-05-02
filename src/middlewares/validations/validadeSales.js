@@ -1,17 +1,17 @@
-const validadeQuantity = (object, res) => (
+const validadeQuantity = (object) => (
   !object.quantity && object.quantity !== 0
-  && res.status(400).json({ message: '"quantity" is required' }))
-  || (object.quantity === 0 
-    && res
-      .status(422)
-      .json({ message: '"quantity" must be greater than or equal to 1' }));
-
-const validadeFields = (sale, res) => sale
-  .map((each) => (
-    !each.productId
-    && res.status(400).json({ message: '"productId" is required' }))
-    || validadeQuantity(each, res));
+  && { message: '"quantity" is required', resSale: 400 })
+  || (object.quantity <= 0
+    && { message: '"quantity" must be greater than or equal to 1', resSale: 422 });
+  
+const validadeProductId = (sale) => {
+  const mapSale = sale.map(
+    (each) => (!each.productId && { message: '"productId" is required', resSale: 400 })
+    || validadeQuantity(each),
+  );
+  return mapSale.find((cada) => cada !== false) || false;
+};
 
 module.exports = {
-  validadeFields,
+  validadeProductId,
 };

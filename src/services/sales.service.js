@@ -13,10 +13,14 @@ const salesById = async (id) => {
 };
 
 const createNewSale = async (newSale) => {
-  newSale.map(async (each) => {
+  const mapSale = await Promise.all(newSale.map(async (each) => {
     const validade = await findById(each.productId);
-    return validade.type && validade.message;
-  });
+    return (validade.type !== null) || undefined;
+  }));
+  const find = mapSale.find((one) => one !== undefined);
+  if (find) {
+    return { type: 404, message: 'Product not found' };
+  }
   const sale = await salesModel.createNewSale(newSale);
   return { type: null, message: sale };
 };
