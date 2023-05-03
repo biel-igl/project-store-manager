@@ -35,11 +35,11 @@ describe("testa os produtos na camada Services", () => {
     it('Atualiza produto com sucesso',async () => {
       sinon.stub(productsModel, 'updateProduct').resolves(1);
       const response = await productsService.updateProduct(1, 'Martelo do Odin');
-      expect(response).to.deep.equal({ message: 1 })
+      expect(response).to.deep.equal({ message: 1, type: null })
     })
     it('Caso id seja invalido', async() => {
       const response = await productsService.updateProduct(6, 'Martelo do Odin');
-      expect(response).to.deep.equal({type:404, message:"Product not found"})
+      expect(response).to.deep.equal({type:404, message:{message:"Product not found"}})
     })
   })
 

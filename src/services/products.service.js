@@ -19,9 +19,9 @@ const createProduct = async (name) => {
 const updateProduct = async (id, name) => {
   const notExistId = await findById(id);
   const { type, message } = notExistId;
-  if (type !== null) return { type, message };
+  if (type !== null) return { type, message: { message } };
   const update = await productsModel.updateProduct(id, name);
-  return { message: update };
+  return { type: null, message: update };
 };
 
 module.exports = {
