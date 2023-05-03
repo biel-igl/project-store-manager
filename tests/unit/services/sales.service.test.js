@@ -5,6 +5,7 @@ const {
   salesServicesMock,
   salesByIdMock,
   newSaleMock,
+  newSaleMockWithTheWrongId,
 } = require("./mock/sales.services.mock");
 const { salesService } = require("../../../src/services");
 
@@ -32,6 +33,13 @@ describe("testa as vendas na camada Services", () => {
       sinon.stub(salesModel, "createNewSale").resolves({ id: 3 });
       const result = await salesService.createNewSale(newSaleMock);
       expect(result.message).to.deep.equal({ id: 3 });
+    });
+    it('Caso o productId seja invalido', async() => {
+      sinon.stub(salesModel, "createNewSale").resolves({ type:404 , message: 'Product not found' });
+      const result = await salesService.createNewSale(
+        newSaleMockWithTheWrongId
+      );
+      expect(result.message).to.deep.equal('Product not found')
     })
   })
 
