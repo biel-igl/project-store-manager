@@ -76,19 +76,38 @@ describe("testa os produtos na camada Controllers", () => {
   });
   describe('com put', () => {
     it('Atualiza rpoduto com sucesso', async () => {
-      sinon.stub(productsService, 'updadeProduct').resolves({ id: 2, name: 'Martelo do Batman' });
-      const req = { body: { name: 'Martelo do Batman' } };
+      sinon
+        .stub(productsService, "updateProduct")
+        .resolves({ id: 2, name: "Martelo do Batman" });
+      const req = { body: { name: "Martelo do Batman" }, params: { id: 2 } };
       const res = {};
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns({ id: 2, name: "Martelo do Batman" });
-      await productsController.updadeProduct(req, res);
+      await productsController.updateProduct(req, res);
       expect(res.status).to.have.been.calledOnceWith(200);
       expect(res.json).to.have.been.calledWith({
         id: 2,
         name: "Martelo do Batman",
       });
-    })
-  })
+    });
+    it('Passa um id invalido', async() => {
+      sinon
+        .stub(productsService, "updateProduct")
+        .resolves({ message: "Product not found" });
+      const req = {
+        body: { name: "Martelo do Batman" },
+        params: { id: 5 }
+      };
+      const res = {};
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns({ message: "Product not found" });
+      await productsController.updateProduct(req, res);
+      expect(res.status).to.have.been.calledOnceWith(404);
+      expect(res.json).to.have.been.calledWith({
+        message: "Product not found",
+      });
+    });
+  });
     
   afterEach(function () {
     sinon.restore();
