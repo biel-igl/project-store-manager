@@ -64,7 +64,7 @@ describe("testa os produtos na camada Controllers", () => {
     it('Novo cadastro com sucesso', async () => {
       sinon
         .stub(productsService, "createProduct")
-        .resolves({message: 4});
+        .resolves({ message: 4 });
       const req = { body: { name: "produto top" } };
       const res = {};
       res.status = sinon.stub().returns(res);
@@ -72,6 +72,21 @@ describe("testa os produtos na camada Controllers", () => {
       await productsController.createNewProduct(req, res);
       expect(res.status).to.have.been.calledOnceWith(201);
       expect(res.json).to.have.been.calledWith(newProduct);
+    });
+  });
+  describe('com put', () => {
+    it('Atualiza rpoduto com sucesso', async () => {
+      sinon.stub(productsService, 'updadeProduct').resolves({ id: 2, name: 'Martelo do Batman' });
+      const req = { body: { name: 'Martelo do Batman' } };
+      const res = {};
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns({ id: 2, name: "Martelo do Batman" });
+      await productsController.updadeProduct(req, res);
+      expect(res.status).to.have.been.calledOnceWith(200);
+      expect(res.json).to.have.been.calledWith({
+        id: 2,
+        name: "Martelo do Batman",
+      });
     })
   })
     
