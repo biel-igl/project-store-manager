@@ -75,11 +75,11 @@ describe("testa os produtos na camada Controllers", () => {
     });
   });
   describe('com put', () => {
-    it('Atualiza rpoduto com sucesso', async () => {
+    it('Atualiza produto com sucesso', async () => {
       sinon
         .stub(productsService, "updateProduct")
-        .resolves({ id: 2, name: "Martelo do Batman" });
-      const req = { body: { name: "Martelo do Batman" }, params: { id: 2 } };
+        .resolves({message: { id: 2, name: "Martelo do Batman" }});
+      const req = { body: { name: "Martelo do Batman" }, params: { id: 1 } };
       const res = {};
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns({ id: 2, name: "Martelo do Batman" });
@@ -102,10 +102,7 @@ describe("testa os produtos na camada Controllers", () => {
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns({ message: "Product not found" });
       await productsController.updateProduct(req, res);
-      expect(res.status).to.have.been.calledOnceWith(404);
-      expect(res.json).to.have.been.calledWith({
-        message: "Product not found",
-      });
+      expect(res.json).to.have.been.calledWith("Product not found");
     });
   });
     

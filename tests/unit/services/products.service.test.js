@@ -31,6 +31,13 @@ describe("testa os produtos na camada Services", () => {
       expect(response.message).to.deep.equal({id:4});
     });
   });
+  describe('com put', () => {
+    it('Atualiza produto com sucesso',async () => {
+      sinon.stub(productsModel, 'updateProduct').resolves(1);
+      const response = await productsService.updateProduct(1, 'Martelo do Odin');
+      expect(response).to.deep.equal({ message: 1 })
+    })
+  })
 
   afterEach(function () {
     sinon.restore();
