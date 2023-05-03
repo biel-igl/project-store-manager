@@ -37,6 +37,10 @@ describe("testa os produtos na camada Services", () => {
       const response = await productsService.updateProduct(1, 'Martelo do Odin');
       expect(response).to.deep.equal({ message: 1 })
     })
+    it('Caso id seja invalido', async() => {
+      const response = await productsService.updateProduct(6, 'Martelo do Odin');
+      expect(response).to.deep.equal({type:404, message:"Product not found"})
+    })
   })
 
   afterEach(function () {
