@@ -31,6 +31,13 @@ describe('testa os produtos na camada Models', () => {
       expect(response).to.be.deep.equal(newProduct.id);
     });
   })
+  describe('Com put', () => {
+    it('Atualiza com sucesso', async () => {
+      sinon.stub(connection, "execute").resolves({id: 1, name: 'produto top'});
+      const response = await productsModel.updateProduct(1, 'produto top');
+      expect(response).to.be.deep.equal({ id: 1, name: "produto top" });
+    })
+  })
 
   afterEach(function () {
     sinon.restore();
