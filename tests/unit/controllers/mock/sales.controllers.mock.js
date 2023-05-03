@@ -41,6 +41,17 @@ const newSaleMock = [
   },
 ];
 
+const newSaleMockWithTheWrongId = [
+  {
+    productId: 7,
+    quantity: 1,
+  },
+  {
+    productId: 1,
+    quantity: 5,
+  },
+];
+
 const returnNewSaleMock = {
   id: 3,
   itemsSold: [
@@ -60,4 +71,5 @@ module.exports = {
   salesByIdMock,
   returnNewSaleMock,
   newSaleMock,
+  newSaleMockWithTheWrongId,
 };

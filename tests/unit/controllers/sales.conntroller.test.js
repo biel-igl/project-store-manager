@@ -7,7 +7,7 @@ chai.use(sinonChai);
 const {
   salesControllerMock,
   salesByIdMock,
-  returnNewSaleMock,
+  newSaleMockWithTheWrongId,
 } = require("./mock/sales.controllers.mock");
 const { salesService } = require("../../../src/services");
 const { salesController } = require("../../../src/controllers");
@@ -59,8 +59,14 @@ describe("testa as vendas na camada Controllers", () => {
       await salesController.createNewSale(req, res);
       expect(res.status).to.have.been.calledOnceWith(201);
     })
-    it("se não tiver o ProductId correto", () => {
-      sinon.stub;
+    it("se não tiver o ProductId correto", async () => {
+      sinon.stub(salesService, "createNewSale").resolves({ type: 404 });
+      const req = { body: newSaleMockWithTheWrongId };
+      const res = {};
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns({ type: 404 });
+      await salesController.createNewSale(req, res);
+      expect(res.status).to.have.been.calledOnceWith(404);
     });
   })
   afterEach(function () {
